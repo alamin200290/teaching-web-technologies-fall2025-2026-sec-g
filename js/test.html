@@ -4,8 +4,14 @@
 </head>
 <body>
         <h1>Js Example</h1>
-        <input type="text" id="username" name="username" value="" />
-        <input type="button" name="" value="Click" onclick="test()" />
+        <form onsubmit="return test()">
+            Username: <input type="text" id="username" name="username" value="" onblur="testUsername()" />
+            <p id="uError"></p>
+            Password: <input type="password" id="password" name="password" value="" onblur="testPassword()" />
+            <p id="pError"></p>
+            <input type="submit" name="" value="Submit" />
+        </form>
+        
 
         <script>
             // name = "alamin";
@@ -46,10 +52,40 @@
             //console.log('testing form JS');
             //alert('test');
             //document.write('Test from JS');
+            
+            let uError = document.getElementById('uError');
+            let pError = document.getElementById('pError');
+            let password = document.getElementById('password');
+            let username = document.getElementById('username');
+
+            function testUsername(){
+                if(username.value == ""){
+                    uError.innerHTML = "Please type username first!";
+                    uError.style.color = "red";
+                }else{
+                    uError.innerHTML = "";
+                }
+            }
+
+            function testPassword(){
+                if(password.value == ""){
+                    pError.innerHTML = "Please type password first!";
+                    pError.style.color = "red";
+                }else{
+                    pError.innerHTML = "";
+                }
+            }
+
             function test(){
-                let username = document.getElementById('username').value;
-                let head = document.getElementsByTagName('h1')[0];
-                head.innerHTML = username;
+                if(uError.innerHTML !== "" || pError.innerHTML !== ""){
+                    return false;
+                }else{
+                    if(username.value != "" && password.value != ""){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
             }
 
         </script>
