@@ -1,4 +1,5 @@
 <?php
+    require_once('../models/userModel.php');
     session_start();
     //print_r($_POST);
     //var_dump($_POST);
@@ -12,9 +13,10 @@
     if($username == "" || $password == ""){
         echo "null username/password";
     }else{
-        if($username == $_SESSION['user']['username'] && $password == $_SESSION['user']['password']){
-            //echo "Login Success!";
-            //$_SESSION['status'] = true;
+
+        $user = ['username'=> $username, 'password'=>$password];
+        $status = login($user);
+        if($status){
             setcookie('status', 'true', time()+3000, '/');
             $_SESSION['username'] = $username;
             header('location: ../views/home.php');
